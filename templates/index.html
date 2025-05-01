@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodKapture</title>
+</head>
+<body>
+    <h1>Test</h1>
+    <form id="upload-form">
+        <input type="file" name="input-image" id="input-image" accept="image/png, image/jpeg, image/jpg, image/heic" required>
+        <button type="submit">Upload Plate</button>
+    </form>
+    <p>{{ 2 + 2 }}</p>
+    <div id="result"></div>
+    <script src="{{ url_for('static', filename='scripts/form.js') }}"></script>
+</body>
+</html>
