@@ -3,16 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', path='stylesheets/main.css') }}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='stylesheets/start.css') }}?v={{ timestamp }}">
     <title>FoodKapture</title>
 </head>
 <body>
-    <h1>Test</h1>
-    <form id="upload-form">
-        <input type="file" name="input-image" id="input-image" accept="image/png, image/jpeg, image/jpg, image/heic" required>
-        <button type="submit">Upload Plate</button>
-    </form>
-    <p>{{ 2 + 2 }}</p>
-    <div id="result"></div>
-    <script src="{{ url_for('static', filename='scripts/form.js') }}"></script>
+    <div id="start-screen" class="onload-overlay">
+        <h1 style="line-height: 1px;">FoodKapture</h1>
+        <h3>Snap. Track. Progress.</h3>
+    </div>
+    <div class="container" id="meal-categories">
+        <h1 id="title">Daily Log</h1>
+        <details class="block-container meal-entry" id="daily-log" data-category="breakfast">
+            <summary>
+                <div class="daily-log-text">
+                    <h3>Breakfast</h3>
+                    <p><span id="breakfast-entries">0</span> logged entries</p>
+                </div>
+            </summary>
+                <!-- <div class="entry-item">
+                    <h3 class="entry-number">Entry 1</h3>
+                </div>
+                <div class="entry-item">
+                    <h3 class="entry-number">Entry 2</h3>
+                </div> -->
+        </details>
+        <details class="block-container meal-entry" id="daily-log" data-category="lunch">
+            <summary>
+                <div class="daily-log-text">
+                    <h3>Lunch</h3>
+                    <p><span id="lunch-entries">0</span> logged entries</p>
+                </div>
+            </summary>
+        </details>
+        <details class="block-container meal-entry" id="daily-log" data-category="dinner">
+            <summary>
+                <div class="daily-log-text">
+                    <h3>Dinner</h3>
+                    <p><span id="dinner-entries">0</span> logged entries</p>
+                </div>
+            </summary>
+        </details>
+        <details class="block-container meal-entry" id="daily-log" data-category="snack">
+            <summary>
+                <div class="daily-log-text">
+                    <h3>Snack</h3>
+                    <p><span id="snack-entries">0</span> logged entries</p>
+                </div>
+            </summary>
+        </details>
+        <!-- <div id="result">placeholder</div> -->
+    </div>
+    <div class="container" id="toolbar">
+        <a href="/render_scan_page">
+            <img id="scan-icon" class="icon" src="{{ url_for('static', path='images/camera_icon.svg') }}">
+        </a>
+        <img id="log-icon" class="icon" src="{{ url_for('static', path='images/log_icon.svg') }}">
+    </div>
+    <script src="{{ url_for('static', path='scripts/createEntry.js') }}?v={{ timestamp }}"></script>
 </body>
 </html>

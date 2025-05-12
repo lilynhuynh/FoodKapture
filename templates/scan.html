@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', path='stylesheets/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='stylesheets/scan.css') }}">
+    <title>FoodKapture</title>
+</head>
+
+<body>
+    <div class="header">
+        <a href="/">
+            <img id="back-arrow" src="{{ url_for('static', path='images/back_arrow.svg') }}">
+        </a>
+    </div>
+    <div id="scan-meal" class="container">
+        <h1 id="title">Scan Meal</h1>
+
+        <video id="video" class="camera-preview" autoplay playsinline></video>
+
+        <canvas id="canvas" style="display: none;"></canvas>
+
+        <p>Take a photo to detect items in your meal</p>
+
+        <!-- <div id="preview"></div>
+
+        <form id="upload-form">
+            <input type="file" name="input-image" id="input-image" accept="image/png, image/jpeg, image/jpg, image/heic" required>
+            <button type="submit">Upload Plate</button>
+        </form>
+        <div id="result"></div> -->
+    </div>
+    <div id="toolbar">
+        <a id="capture-button">
+            <img id="camera-icon" class="icon" src="{{ url_for('static', path='images/camera_icon.svg') }}">
+        </a>
+        <a id="correct-image" style="display: none;" href="/render_detected_page">
+            <img id="correct-icon" class="icon" src="{{ url_for('static', path='images/checkmark.svg') }}">
+        </a>
+        <a id="incorrect-image" style="display: none;">
+            <img id="incorrect-icon" class="icon" src="{{ url_for('static', path='images/subtract.svg') }}">
+        </a>
+    </div>
+
+    <script src="{{ url_for('static', path='scripts/scan.js') }}"></script>
+</body>
+
+</html>

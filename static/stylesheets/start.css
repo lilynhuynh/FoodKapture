@@ -1,0 +1,125 @@
+#start-screen {
+    position: fixed;
+    color: var(--ivory);
+    background-color: var(--forest-green);
+    width: 100%;
+    height: 100%;
+    line-height: 2px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeOut 1s ease 2s forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+.container {
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#meal-categories {
+    flex-flow: column;
+}
+
+.container #title {
+    margin-bottom: 6rem;
+    float: top;
+}
+
+.block-container {
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    margin: 0 0 1rem 0;
+    p, h3, h1 {
+        color: var(--forest-green);
+        line-height: 1px;
+    }
+}
+
+#daily-log-text {
+    grid-area: text;
+}
+
+.meal-entry {
+    cursor: pointer;
+}
+
+#toolbar {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    border: none;
+    border-top: solid 1px var(--black);
+    justify-content: space-evenly;
+    position: sticky;
+}
+
+#toolbar .icon {
+    width: 100px;
+    margin: 1.5rem;
+}
+
+.meal-entry summary {
+    list-style: none;
+    position: relative;
+    cursor: pointer;
+}
+
+.meal-entry summary::marker {
+    display: none;
+}
+
+.meal-entry summary::after {
+    content: "▶";
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    transition: transform 0.3s ease;
+    color: var(--forest-green);
+}
+
+.meal-entry[open] summary::after {
+    content: "▼";
+    color: var(--forest-green);
+}
+
+.entries-container {
+    background-color: var(--lint);
+    padding: 1rem;
+    border-radius: 15px;
+}
+
+.entry-item {
+    background-color: var(--ivory);
+    transition: box-shadow 0.3s ease;
+    border: solid 2px var(--forest-green);
+    border-radius: 15px;
+    padding: 10px;
+    margin: 0 0 1rem 0;
+    text-align: center;
+}
+
+.entry-item:hover {
+    box-shadow: 3px 3px 0px var(--forest-green);
+}
+
+.entry-item:active {
+    background-color: var(--emerald-green);
+
+    p, h3 {
+        color: var(--ivory);
+    }
+}

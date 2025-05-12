@@ -1,0 +1,31 @@
+#title {
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.camera-preview {
+    width: 80%;
+    border-radius: 20px;
+}
+
+#toolbar {
+    margin: 0;
+    padding: 0;
+    /* width: 100%; */
+    display: flex;
+    flex-flow: row;
+    border: none;
+    /* border-top: solid 1px var(--black); */
+    justify-content: space-evenly;
+    position: sticky;
+}
+
+#toolbar .icon {
+    width: 100px;
+    margin: 1.5rem;
+}
