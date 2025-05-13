@@ -34,6 +34,7 @@ const captureButton = document.getElementById('capture-button');
 const correctButton = document.getElementById('correct-image');
 const incorrectButton = document.getElementById('incorrect-image');
 const backArrow = document.getElementById('back-arrow');
+const instructions = document.getElementById('instructions');
 
 captureButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -57,6 +58,7 @@ captureButton.addEventListener('click', (e) => {
     video.style.display = 'none';
 
     title.textContent = 'Confirm Photo';
+    instructions.textContent = 'Please ensure that the photo is aligned in the bounding boxes'
     backArrow.style.display = 'none';
 
     correctButton.style.display = 'block';

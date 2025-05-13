@@ -1,0 +1,132 @@
+.header-text {
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.header-text h3 {
+  line-height: 0;
+  font-weight: 600;
+}
+
+.header-text p {
+  line-height: 0;
+  font-size: 0.7rem;
+}
+
+#detected-meal {
+  background-color: var(--lint);
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.block-container {
+    text-align: left;
+    padding: 10px;
+    margin: 0 0 1rem 0;
+    cursor: pointer;
+    background-color: var(--ivory);
+    display: flex;
+    align-items: center;
+    position: relative;
+    p, h3, h1 {
+        color: var(--forest-green);
+        line-height: 1px;
+    }
+}
+
+.checkbox-block {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkbox-effect:not(:checked),
+.checkbox-effect:checked {
+  position: absolute;
+  left: -9999px;
+}
+
+.checkbox-icon {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--forest-green);
+  border-radius: 50%;
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  transition: all 0.2s linear;
+  background-color: transparent;
+  position: relative;
+}
+
+.checkbox-icon::after {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 10px;
+  color: var(--ivory);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.checkbox-effect:checked + label .checkbox-icon {
+  background-color: var(--forest-green);
+  border-color: var(--forest-green);
+  transform: scale(1.5);
+  transition: all 0.2s cubic-bezier(0.57, 1.9, 0, 1.52);
+}
+
+.checkbox-effect:checked + label .checkbox-icon::after {
+  opacity: 1;
+  transition-delay: 0.2s;
+}
+
+.item-subtext {
+  font-size: 0.7rem;
+}
+
+#ingredient-calories {
+  position: absolute;
+  margin: 10px;
+  padding: 10px;
+  width: 50px;
+  top: 0;
+  right: 0;
+  text-align: center;
+  line-height: 1rem;
+}
+
+#add-ingredient-button {
+  border-color: var(--emerald-green);
+  text-decoration: none;
+}
+
+#add-ingredient-button h3 {
+  color: var(--emerald-green);
+  font-weight: 600;
+  padding-left: 50px;
+}
+
+#submit-meal {
+  width: 100%;
+  border-radius: 25px;
+  background-color: var(--forest-green);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: bottom;
+  margin-top: 2rem;
+}
+
+#submit-meal p {
+  color: var(--ivory);
+  font-weight: 500;
+}
+
+
+/*# sourceMappingURL=detected.css.map */

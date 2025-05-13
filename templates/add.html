@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', path='stylesheets/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='stylesheets/add.css') }}">
+    <title>FoodKapture</title>
+</head>
+
+<body>
+    <div class="header">
+        <a href="/render_detected_page">
+            <img id="back-arrow" src="{{ url_for('static', path='images/back_arrow.svg') }}">
+        </a>
+    </div>
+    <div class="header-text">
+        <h3>Add Ingredient</h3>
+    </div>
+    <div id="add-ingredient" class="container">
+        <input type="text" id="ingrendient-name-entry" placeholder="Enter The Ingredient Name">
+        <div id="ingredient-manual-entry">
+            <p id="serving-size-text" class="entry-text">Serving Size</p>
+            <p id="amount-size-text" class="entry-text">Number of Servings</p>
+            <button id="serving-size-entry" class="open-button">Select Unit</button>
+            <button id="amount-size-entry" class="open-button">Select Amount</button>
+        </div>
+    </div>
+    <div id="ingredient-nutrients">
+        <div id="ingredient-calories">
+            <input id="calories-number" type="number" min="1" max="1000" step="1" placeholder="#" required>
+            <label for="calories-number">Cals</label>
+        </div>
+        <div id="ingredient-fats">
+            <input id="fats-number" type="number" min="1" max="1000" step="1" placeholder="#" required>
+            <label for="fats-number">g</label>
+            <p class="amount-subtext">Fats</p>
+        </div>
+        <div id="ingredient-carbs">
+            <input id="carbs-number" type="number" min="1" max="1000" step="1" placeholder="#" required>
+            <label for="carbs-number">g</label>
+            <p class="amount-subtext">Carbohydrates</p>
+        </div>
+        <div id="ingredient-proteins">
+            <input id="proteins-number" type="number" min="1" max="1000" step="1" placeholder="#" required>
+            <label for="proteins-number">g</label>
+            <p class="amount-subtext">Proteins</p>
+        </div>
+    </div>
+    <div id="serving-size-bottom-sheet" class="bottom-sheet">
+        <div class="sheet-content">
+            <p>Select Unit</p>
+            <ul class="option-list">
+                <li id="serving-item" class="option-item">1 cup</li>
+                <li id="serving-item" class="option-item">8 fluid ounces</li>
+                <li id="serving-item" class="option-item">237 milliliter</li>
+            </ul>
+        </div>
+        <span id="serving-size-close-sheet" class="close-button">&times</span>
+    </div>
+    <div id="amount-size-bottom-sheet" class="bottom-sheet">
+        <div class="sheet-content">
+            <p>Select Amount</p>
+            <ul id="amount-wheel" class="wheel-list option-list">
+                <li id="amount-item" class="option-item">1</li>
+                <li id="amount-item" class="option-item">2</li>
+                <li id="amount-item" class="option-item">3</li>
+                <li id="amount-item" class="option-item">4</li>
+                <li id="amount-item" class="option-item">5</li>
+                <li id="amount-item" class="option-item">6</li>
+                <li id="amount-item" class="option-item">7</li>
+                <li id="amount-item" class="option-item">8</li>
+                <li id="amount-item" class="option-item">9</li>
+                <li id="amount-item" class="option-item">10</li>
+                <li id="amount-item" class="option-item">11</li>
+                <li id="amount-item" class="option-item">12</li>
+                <li id="amount-item" class="option-item">13</li>
+                <li id="amount-item" class="option-item">14</li>
+                <li id="amount-item" class="option-item">15</li>
+                <li id="amount-item" class="option-item">16</li>
+                <li id="amount-item" class="option-item">17</li>
+                <li id="amount-item" class="option-item">18</li>
+                <li id="amount-item" class="option-item">19</li>
+                <li id="amount-item" class="option-item">20</li>
+            </ul>
+        </div>
+        <span id="amount-size-close-sheet" class="close-button">&times</span>
+    </div>
+    <div class="container">
+        <button id="submit-ingredient" class="block-container" type="submit">
+            <p>Add Ingredient</p>
+        </button>
+    </div>
+    <script src="{{ url_for('static', path='scripts/add.js') }}"></script>
+</body>
+
+</html>

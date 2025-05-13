@@ -29,6 +29,12 @@ os.makedirs(UPLOAD_FOLDER_PATH, exist_ok=True)
 connect = sqlite3.connect("foodKapture.db")
 cursor = connect.cursor()
 
+# cursor.execute("""
+#     ALTER TABLE loggedEntriesCount
+#     ADD totalCarbs NUMBER;
+# """)
+# connect.commit()
+
 @router.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     print("==> Rendering index.html")  # Add this
@@ -48,6 +54,27 @@ async def detect(request: Request):
     print("==> Rendering detected.html")  # Add this
     timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
     return templates.TemplateResponse("detected.html",
+    {"request": request, "timestamp": timestamp})
+
+@router.get("/render_add_page", response_class=HTMLResponse)
+async def add(request: Request):
+    print("==> Rendering add.html")  # Add this
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    return templates.TemplateResponse("add.html",
+    {"request": request, "timestamp": timestamp})
+
+@router.get("/render_update_page", response_class=HTMLResponse)
+async def update(request: Request):
+    print("==> Rendering update.html")  # Add this
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    return templates.TemplateResponse("update.html",
+    {"request": request, "timestamp": timestamp})
+
+@router.get("/render_summary_page", response_class=HTMLResponse)
+async def summary(request: Request):
+    print("==> Rendering summary.html")  # Add this
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    return templates.TemplateResponse("summary.html",
     {"request": request, "timestamp": timestamp})
 
 @router.get("/get_daily_entries")
@@ -85,6 +112,14 @@ async def start_entry(meal_category: str = Form(...)):
     except Exception as e:
         print(f"{meal_category} not correct format!")
         raise HTTPException(status_code=500, detail=str(e))
+    
+@router.get("/generate_summary_chart")
+async def generate_chart():
+    print("==> In generate chart")
+    return JSONResponse({
+        "labels": ["Chicken", "Noodles", "Cupcakes", "Peas", "Pies", "Yogurt"],
+        "values": [5, 3, 7, 2, 4, 1]
+    })
 
 @router.post('/classify')
 async def classify(image: UploadFile = File(...), dt: str = Form(...)):

@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             for (var i = 0; i < data[`${category}Num`]; i++) {
                 let entryItem = document.createElement("div");
-                entryItem.className = "entry-number";
+                entryItem.className = "entry-item";
 
                 let entryNum = document.createElement("h3");
                 entryNum.className = "entry-number";
@@ -79,3 +79,5 @@ window.onload = function () {
         document.querySelector('body').style.overflow = 'none';
     }, 3000);
 };
+
+// 3000 x 4000 pixels minimum

@@ -1,0 +1,100 @@
+.header-text {
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.header-text h3 {
+    line-height: 0;
+    font-weight: 600;
+}
+
+.header-text p {
+    line-height: 0;
+    font-size: 0.7rem;
+}
+
+#detected-meal {
+    background-color: var(--lint);
+    height: 100%;
+    padding: 15px;
+}
+
+@mixin position-absolute ($top: null, $left: null, $right: null, $bottom: null) {
+    position: absolute;
+    top: $top;
+    left: $left;
+    right: $right;
+    bottom: $bottom;
+}
+
+@mixin transition-mix($property: all, $duration: 0.2s, $timing: linear, $delay: 0s) {
+    transition-property: $property;
+    transition-duration: $duration;
+    transition-timing-function: $timing;
+    transition-delay: $delay;
+}
+
+.checkbox-block {
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkbox-effect:not(:checked),
+.checkbox-effect:checked {
+    position: absolute;
+    left: -9999px;
+}
+
+label {
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-effect-5:not(:checked)+label:before,
+.checkbox-effect-5:checked+label:before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--forest-green);
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-right: 20px;
+    transform-origin: center center;
+    @include transition-mix;
+}
+
+.checkbox-effect-5:not(:checked)+label:after,
+.checkbox-effect-5:checked+label:after {
+    content: "\f00c";
+
+    font: {
+        family: fontawesome;
+        size: 10px;
+    }
+
+    display: flex;
+    height: 100%;
+    align-items:center;
+    @include position-absolute($left: 1px, $top: 0);
+    color: var(--forest-green);
+}
+
+.checkbox-effect-5:not(:checked)+label:after {
+    opacity: 0;
+}
+
+.checkbox-effect-5:checked+label:before {
+    transform: scale(1.5);
+    background-color: var(--forest-green);
+    border-color: var(--forest-green);
+    @include transition-mix($timing: cubic-bezier(0.57, 1.9, 0, 1.52));
+}
+
+.checkbox-effect-5:checked+label:after {
+    opacity: 1;
+    @include transition-mix($delay: 0.2s);
+}

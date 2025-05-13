@@ -21,12 +21,14 @@
                     <p><span id="breakfast-entries">0</span> logged entries</p>
                 </div>
             </summary>
-                <!-- <div class="entry-item">
+            <!-- <div class="entries-container">
+                <div class="entry-item">
                     <h3 class="entry-number">Entry 1</h3>
                 </div>
                 <div class="entry-item">
                     <h3 class="entry-number">Entry 2</h3>
-                </div> -->
+                </div>
+            </div> -->
         </details>
         <details class="block-container meal-entry" id="daily-log" data-category="lunch">
             <summary>
@@ -58,7 +60,9 @@
         <a href="/render_scan_page">
             <img id="scan-icon" class="icon" src="{{ url_for('static', path='images/camera_icon.svg') }}">
         </a>
-        <img id="log-icon" class="icon" src="{{ url_for('static', path='images/log_icon.svg') }}">
+        <a href="/render_summary_page">
+            <img id="log-icon" class="icon" src="{{ url_for('static', path='images/log_icon.svg') }}">
+        </a>
     </div>
     <script src="{{ url_for('static', path='scripts/createEntry.js') }}?v={{ timestamp }}"></script>
 </body>
