@@ -1,3 +1,7 @@
+const addIngredient = document.getElementById('submit-ingredient');
+console.log(addIngredient);
+console.log(JSON.parse(sessionStorage.getItem('currentMeal')));
+
 // SERVING SIZE
 const servingOpen = document.getElementById("serving-size-entry");
 const servingClose = document.getElementById("serving-size-close-sheet");
@@ -59,3 +63,40 @@ amountOptions.forEach(option => {
         amountSheet.classList.remove('open');
     });
 });
+
+addIngredient.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log("==> New ingredient entry")
+    let retrievedData = JSON.parse(sessionStorage.getItem("currentMeal"));
+    let mealData = retrievedData.output;
+
+    let ingredientName = document.getElementById('ingrendient-name-entry').value;
+    let ingredientServing = servingOpen.textContent;
+    let ingredientAmt = amountOpen.textContent;
+    let numCals = document.getElementById('calories-number').value;
+    let numFats = document.getElementById('fats-number').value;
+    let numCarbs = document.getElementById('carbs-number').value;
+    let numProteins = document.getElementById('proteins-number').value;
+    const mealName = `input-${ingredientName.replace(/\s+/g, '-')}`;
+
+    // TODO - add serving and amt somewhere
+
+    mealData[ingredientName] = {
+        "calories": numCals,
+        "carbs": numCarbs,
+        "proteins": numProteins,
+        "fats": numFats,
+    }
+
+    retrievedData.output = mealData;
+
+    sessionStorage.setItem('currentMeal', JSON.stringify(retrievedData));
+    // get ingredientnameentry
+    // get servingsize
+    // get number of servings
+    // get num calories
+    // get num fats
+    // get num carbs
+    // get num proteins
+    window.location.href = '/render_detected_page';
+})

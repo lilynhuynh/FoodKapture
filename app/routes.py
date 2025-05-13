@@ -14,6 +14,7 @@ from .utils.log_entries import create_new_meal_entry
 import sqlite3
 import json
 from datetime import datetime
+from PIL import Image
 
 router = APIRouter()
 
@@ -77,6 +78,55 @@ async def summary(request: Request):
     return templates.TemplateResponse("summary.html",
     {"request": request, "timestamp": timestamp})
 
+@router.post("/generate_summary_chart")
+async def generate_chart(request: Request):
+    print("==> In generate chart")
+    data = await request.json()
+    test_data = data.get('output')
+
+    print("==> Saved data", test_data)
+
+    # TODO - add SQL implementation
+    labelNames = []
+    labelInstances = {}
+    totalCals = 0
+    totalFats = 0
+    totalCarbs = 0
+    totalProteins = 0
+
+    for item, values in test_data.items(): # for each key
+        print("==> Current item:", item, values)
+        if item not in labelInstances:
+            labelNames.append(item)
+            labelInstances[item] = 1
+        else:
+            labelInstances[item] = labelInstances[item] + 1
+        totalCals += values["calories"]
+        totalFats += values["fats"]
+        totalCarbs += values["carbs"]
+        totalProteins += values["proteins"]
+
+    result = {
+        "labels": labelNames,
+        "values": list(labelInstances.values()),
+        "cals": totalCals,
+        "fats": totalFats,
+        "carbs": totalCarbs,
+        "proteins": totalProteins
+    }
+    print("==> Current returning summary table", result)
+    return result
+
+
+    return JSONResponse(content={
+        "labels": test_data.keys(),
+        "values": [5, 3, 7, 2, 4, 1],
+        "cals": totalCals,
+        "fats": totalFats,
+        "carbs": totalCarbs,
+        "proteins": totalProteins
+    })
+
 @router.get("/get_daily_entries")
 async def get_daily_entries():
     date_today = datetime.now().strftime('%Y-%m-%d')
@@ -102,27 +152,22 @@ async def get_daily_entries():
     return JSONResponse(content=result)
 
 @router.post("/start_entry")
-async def start_entry(meal_category: str = Form(...)):
+async def start_entry(meal_category: str = Form(...), image: UploadFile = File(...)):
     print("==> In start entry!!!!")
     try:
         print("==> Creating new entry")
-        entryCount = create_new_meal_entry(meal_category)
+        datetime_entry = create_new_meal_entry(meal_category)
+        print("==> Received datetime from create new entry:", datetime_entry)
 
-        return JSONResponse(entryCount)
+        detected_items = await classify(image, datetime_entry)
+
+        return JSONResponse(content=detected_items)
     except Exception as e:
         print(f"{meal_category} not correct format!")
         raise HTTPException(status_code=500, detail=str(e))
-    
-@router.get("/generate_summary_chart")
-async def generate_chart():
-    print("==> In generate chart")
-    return JSONResponse({
-        "labels": ["Chicken", "Noodles", "Cupcakes", "Peas", "Pies", "Yogurt"],
-        "values": [5, 3, 7, 2, 4, 1]
-    })
 
-@router.post('/classify')
-async def classify(image: UploadFile = File(...), dt: str = Form(...)):
+# @router.post('/classify')
+async def classify(image: UploadFile, dt: str):
     if not image:
         raise HTTPException(status_code=400, detail="No image uploaded")
     
@@ -133,28 +178,63 @@ async def classify(image: UploadFile = File(...), dt: str = Form(...)):
         filename = image.filename
         
         print(f"==> Got file {image.filename}")
-        processed_img = preprocess_image(image.file)
-
-        # if image.filename == '':
-        #     print(f"==> No selected file")
-        #     return jsonify({"error": "No file selected"}, 400)
+        processed_img = (Image.open(image.file)).convert("RGB")
 
         filename = f"upload_{dt}.jpg"
+        print(f"==>Expected upload name: {filename}")
         savePath = os.path.join(UPLOAD_FOLDER_PATH, filename)
         processed_img.save(savePath, format="JPEG")
         print("==> File saved successfully")
 
         output = run_inference(processed_img)
-        cursor.execute("""
-            UPDATE dailyLoggedEntries
-            SET predictedItems = ?
-            WHERE datetime = ?
-        """), (json.dumps(output), dt)
-        connect.commit()
+        print("==> Received prediction:", output)
+        testoutput = await testInput(output)
+        print("==> Received testoutput", testoutput)
+        # cursor.execute("""
+        #     UPDATE dailyLoggedEntries
+        #     SET predictedItems = ?
+        #     WHERE datetime = ?
+        # """), (json.dumps(output), dt)
+        # connect.commit()
 
-        return JSONResponse(content={'message': "Image saved", "filename": filename, "output": output})
+        return {
+            'message': "Image saved",
+            'filename': filename,
+            'output': testoutput
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-        # return jsonify({'message': 'Image Saved!', 'filename': filename}, 200)
+async def testInput(prediction: list):
+    print("==> In test", prediction)
+
+    testJSON = {}
+
+    for item in prediction:
+        if item == "hot dog":
+            testJSON[item] = {
+                'calories': 215,
+                'fats': 18.9,
+                'carbs': 0.3,
+                'proteins': 10.3
+            }
+        if item == "apple":
+            testJSON[item] = {
+                'calories': 95,
+                'fats': 0,
+                'carbs': 25,
+                'proteins': 1
+            }
+        if item == "donut":
+            testJSON[item] = {
+                'calories': 272,
+                'fats': 12,
+                'carbs': 38.8,
+                'proteins': 3.8
+            }
+
+    test_data = testJSON
+    print("==> Test Output:", testJSON)
+    print(json.dumps(testJSON))
+    return testJSON
 

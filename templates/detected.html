@@ -11,7 +11,7 @@
     <title>FoodKapture</title>
 </head>
 
-<body>
+<body data-page="detected">
     <div class="header">
         <a href="/render_scan_page">
             <img id="back-arrow" src="{{ url_for('static', path='images/back_arrow.svg') }}">
@@ -23,7 +23,7 @@
     </div>
     <div id="detected-meal" class="container">
         <form id="detected-items">
-            <input class="checkbox-effect" id="get-up-5" type="checkbox" value="coffee" name="coffee">
+            <!-- <input class="checkbox-effect" id="get-up-5" type="checkbox" value="coffee" name="coffee">
             <label for="get-up-5" class="block-container">
                 <div class="checkbox-icon"></div>
                 <div class="checkbox-text-container">
@@ -34,7 +34,7 @@
                         cals
                     </p>
                 </div>
-            </label>
+            </label> -->
         </form>
         <a id="add-ingredient-button" class="block-container" href="/render_add_page">
             <img id="camera-icon" class="icon" src="{{ url_for('static', path='images/add.svg') }}">
@@ -50,14 +50,8 @@
             <p>Log Meal</p>
         </button>
     </div>
-    
-    <script>
-        let logMeal = document.getElementById("submit-meal");
-        logMeal.addEventListener("click", () => {
-            window.location.href = "/";
-        })
-    </script>
-    <!-- <script src="{{ url_for('static', path='scripts/scan.js') }}"></script> -->
+
+    <script src="{{ url_for('static', path='scripts/scan.js') }}"></script>
 </body>
 
 </html>

@@ -9,7 +9,7 @@
     <title>FoodKapture</title>
 </head>
 
-<body>
+<body data-page="scan">
     <div class="header">
         <a href="/">
             <img id="back-arrow" src="{{ url_for('static', path='images/back_arrow.svg') }}">
@@ -21,13 +21,13 @@
         <div id="meal-category">
             <p>Please specify the meal category:</p>
             <div id="meal-category-list" class="select" tabindex="1">
-                <input class="select-opt" name="test" type="radio" id="breakfast-opt" checked>
+                <input class="select-opt" name="meal-categories" type="radio" id="breakfast-opt">
                 <label for="breakfast-opt" class="option">Breakfast</label>
-                <input class="select-opt" name="test" type="radio" id="lunch-opt">
+                <input class="select-opt" name="meal-categories" type="radio" id="lunch-opt">
                 <label for="lunch-opt" class="option">Lunch</label>
-                <input class="select-opt" name="test" type="radio" id="dinner-opt">
+                <input class="select-opt" name="meal-categories" type="radio" id="dinner-opt">
                 <label for="dinner-opt" class="option">Dinner</label>
-                <input class="select-opt" name="test" type="radio" id="snack-opt">
+                <input class="select-opt" name="meal-categories" type="radio" id="snack-opt">
                 <label for="snack-opt" class="option">Snack</label>
             </div>
         </div>
@@ -50,7 +50,7 @@
         <a id="capture-button">
             <img id="camera-icon" class="icon" src="{{ url_for('static', path='images/camera_icon.svg') }}">
         </a>
-        <a id="correct-image" style="display: none;" href="/render_detected_page">
+        <a id="correct-image" style="display: none;">
             <img id="correct-icon" class="icon" src="{{ url_for('static', path='images/checkmark.svg') }}">
         </a>
         <a id="incorrect-image" style="display: none;">

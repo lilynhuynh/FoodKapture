@@ -1,6 +1,12 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-    fetch('/generate_summary_chart')
+    const mealData = JSON.parse(sessionStorage.getItem('currentMeal')).output;
+    console.log(mealData);
+    
+    fetch('/generate_summary_chart', {
+        method: 'POST',
+        body: JSON.stringify({ output: mealData})
+    })
     .then(response => response.json())
     .then(data => {
         const context = document.getElementById('summary-chart');
@@ -27,6 +33,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         });
+
+        const totalCals = document.getElementById('total-calories');
+        const totalFats = document.getElementById('total-fats');
+        const totalProteins = document.getElementById('total-proteins');
+        const totalCarbs = document.getElementById('total-carbs');
+
+        totalCals.textContent = data.cals;
+        totalFats.textContent = data.fats;
+        totalCarbs.textContent = data.carbs;
+        totalProteins.textContent = data.proteins;
+
+
     })
     .catch(err => {
         console.error('Error occurred:', err);

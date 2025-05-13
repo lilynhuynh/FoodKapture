@@ -1,6 +1,7 @@
 import sqlite3
 from datetime import datetime
 from fastapi import APIRouter, Form
+from fastapi.responses import JSONResponse
 
 # Connect to database (create if does not exist)
 connect = sqlite3.connect("foodKapture.db", check_same_thread=True)
@@ -41,8 +42,9 @@ def create_new_meal_entry(category):
         VALUES (?, ?)
     """, (datetime_str, category))
     connect.commit()
-    print(f"==> Inserted NEW MEAL ENTRY: {datetime} | {category}")
-    return current_meal_count
+    print(f"==> Inserted NEW MEAL ENTRY: {datetime_str} | {category}")
+
+    return datetime_str
 
 def increment_meal_count(category):
     print(f"==> In increment_meal_count for {category}!")
