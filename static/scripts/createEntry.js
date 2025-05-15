@@ -1,4 +1,4 @@
-console.log("successfully connected")
+// Will retrieve the daily entries for each meal category from SQL tables
 
 document.addEventListener("DOMContentLoaded", () => {
     fetch('/get_daily_entries')
@@ -34,44 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 })
 
-// document.querySelectorAll('.meal-entry').forEach(div => {
-//     div.addEventListener('click', () => {
-//         const category = div.getAttribute("data-category")
-//         console.log("==> New request for", category)
-
-//         const formData = new FormData();
-//         formData.append('meal_category', category);
-        
-//         // Debug formData
-//         for (let [key, value] of formData.entries()) {
-//             console.log(`${key}: ${value}`);
-//         }
-
-//         fetch('/start_entry', {
-//             method: 'POST',
-//             body: formData
-//         })
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error(`HTTP ${response.status}`);
-//             }
-//             return response.json();
-//         })
-//         .then(data => {
-//             console.log("==> Successfully received new entry:", data);
-
-
-//             document.getElementById("breakfast-entries").textContent = data.breakfastNum;
-//             document.getElementById("lunch-entries").textContent = data.lunchNum;
-//             document.getElementById("dinner-entries").textContent = data.dinnerNum;
-//             document.getElementById("snack-entries").textContent = data.snackNum;
-//         })
-//         .catch(err => {
-//             console.error('Error occurred:', err);
-//         });
-//     })
-// })
-
+// Onload function that opens a open screen for 3 seconds
 window.onload = function () {
     setTimeout(() => {
         console.log("start")
@@ -79,5 +42,3 @@ window.onload = function () {
         document.querySelector('body').style.overflow = 'none';
     }, 3000);
 };
-
-// 3000 x 4000 pixels minimum

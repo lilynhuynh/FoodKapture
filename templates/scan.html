@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', path='stylesheets/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='stylesheets/scan.css') }}">
-    <title>FoodKapture</title>
+    <title>Scan Your Plate</title>
 </head>
 
 <body data-page="scan">
@@ -37,14 +37,6 @@
         <canvas id="canvas" style="display: none;"></canvas>
 
         <p id="instructions">Take a photo to detect items in your meal</p>
-
-        <!-- <div id="preview"></div>
-
-        <form id="upload-form">
-            <input type="file" name="input-image" id="input-image" accept="image/png, image/jpeg, image/jpg, image/heic" required>
-            <button type="submit">Upload Plate</button>
-        </form>
-        <div id="result"></div> -->
     </div>
     <div id="toolbar">
         <a id="capture-button">

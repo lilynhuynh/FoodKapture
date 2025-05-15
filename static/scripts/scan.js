@@ -1,9 +1,11 @@
-console.log("successfully connected")
+// For scan.html and detected.html pages
 
+// Set up the camera/video interface environment
 let capturedFile = null;
 let currentFacing = 'environment'; // default, front-facing
 let stream = null;
 
+// Sets up which side the camera will face (e.g. if mobile, set back camera, if not available, set front camera)
 async function startCamera(facingMode) {
     console.log(facingMode)
     if (stream) {
@@ -23,6 +25,7 @@ async function startCamera(facingMode) {
     }
 }
 
+// Gets the meal category from the user input
 function getMealCategory() {
     let mealCategory = document.querySelector('input[name="meal-categories"]:checked');
     if (!mealCategory) {
@@ -32,6 +35,7 @@ function getMealCategory() {
     return mealCategory.id.replace("-opt", "");
 }
 
+// If the current page is scan.html
 if (document.body.dataset.page == 'scan') {
     startCamera(currentFacing);
 
@@ -45,6 +49,7 @@ if (document.body.dataset.page == 'scan') {
     const backArrow = document.getElementById('back-arrow');
     const instructions = document.getElementById('instructions');
 
+    // If a person clicks the capture button, it will save the image as a jpg and wait for the user to confirm if they would like to continue or not
     captureButton.addEventListener('click', (e) => {
         e.preventDefault();
 
@@ -83,11 +88,13 @@ if (document.body.dataset.page == 'scan') {
         captureButton.style.display = 'none';
     })
 
+    // If user hits X, it will reload to camera interface again
     incorrectButton.addEventListener('click', (e) => {
         e.preventDefault();
         window.location.reload();
     })
 
+    // If the user confirms, it will create a new entry and the image file will be sent to classification by the model
     correctButton.addEventListener('click', e => {
         e.preventDefault()
         const formData = new FormData();
@@ -110,11 +117,6 @@ if (document.body.dataset.page == 'scan') {
         })
             .then(response => response.json())
             .then(data => {
-                /*
-                Display results on html
-                - Food classified
-                - Nutritional content i.e. allergens, calories, etc.
-                */
                 console.log(data)
                 sessionStorage.setItem('currentMeal', JSON.stringify(data));
                 window.location.href = "/render_detected_page";
@@ -123,7 +125,9 @@ if (document.body.dataset.page == 'scan') {
                 console.log("Error:", err);
             });
     })
+// If the current page is detected.html
 } else if (document.body.dataset.page == 'detected') {
+    // Gets the stored current meal and displays them onscreen
     console.log("on detected");
     const receivedData = JSON.parse(sessionStorage.getItem("currentMeal"));
 
@@ -161,7 +165,7 @@ if (document.body.dataset.page == 'scan') {
         let ingredientAmt = document.createElement('p');
         ingredientAmt.id = 'ingredient-amount';
         ingredientAmt.class = 'item-subtext';
-        ingredientAmt.textContent = '1 serving size';
+        ingredientAmt.textContent = `Detected ${mealData[key].amount} Instances`;
 
         let ingredientCals = document.createElement('p');
         ingredientCals.id = 'ingredient-calories';
@@ -170,7 +174,7 @@ if (document.body.dataset.page == 'scan') {
         let ingredientCalsNum = document.createElement('span');
         ingredientCalsNum.id = 'calories';
         console.log(mealData[key].calories)
-        ingredientCalsNum.textContent = mealData[key].calories;
+        ingredientCalsNum.textContent = `${mealData[key].calories} cals`;
         ingredientCals.appendChild(ingredientCalsNum);
 
         checkboxContainer.appendChild(ingredientName);
@@ -186,9 +190,9 @@ if (document.body.dataset.page == 'scan') {
         console.log("updated form:", parentContainer)
     }
 
+    // Listens for user click to submit meal and send back to index.html
     let logMeal = document.getElementById("submit-meal");
     logMeal.addEventListener("click", () => {
-        // TODO - update sql table?
         window.location.href = "/";
     })
 }

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', path='stylesheets/detected.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-    <title>FoodKapture</title>
+    <title>Meal Detected</title>
 </head>
 
 <body data-page="detected">
@@ -23,29 +23,11 @@
     </div>
     <div id="detected-meal" class="container">
         <form id="detected-items">
-            <!-- <input class="checkbox-effect" id="get-up-5" type="checkbox" value="coffee" name="coffee">
-            <label for="get-up-5" class="block-container">
-                <div class="checkbox-icon"></div>
-                <div class="checkbox-text-container">
-                    <p id="ingredient-name" class="item-text">Coffee</p>
-                    <p id="ingredient-amount" class="item-subtext">1 cup</p>
-                    <p id="ingredient-calories" class="item-text">
-                        <span id="calories">15000</span>
-                        cals
-                    </p>
-                </div>
-            </label> -->
         </form>
         <a id="add-ingredient-button" class="block-container" href="/render_add_page">
             <img id="camera-icon" class="icon" src="{{ url_for('static', path='images/add.svg') }}">
             <h3>Add Ingredient</h3>
         </a>
-
-        <!-- <form id="upload-form">
-            <input type="file" name="input-image" id="input-image" accept="image/png, image/jpeg, image/jpg, image/heic" required>
-            <button type="submit">Upload Plate</button>
-        </form>
-        <div id="result"></div> -->
         <button id="submit-meal" class="block-container" type="submit">
             <p>Log Meal</p>
         </button>

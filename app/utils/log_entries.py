@@ -1,7 +1,12 @@
+"""
+File: log_entries.py
+Description: Creates foodKapture.db if it does not exist creates a new entry
+into the table for all scanned entries.
+"""
+
+# Imports
 import sqlite3
 from datetime import datetime
-from fastapi import APIRouter, Form
-from fastapi.responses import JSONResponse
 
 # Connect to database (create if does not exist)
 connect = sqlite3.connect("foodKapture.db", check_same_thread=True)
@@ -13,9 +18,12 @@ cursor.execute("""
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         datetime TEXT NOT NULL,
         mealCategory TEXT NOT NULL,
-        predictedItems TEXT,
         confirmedItems TEXT,
-        numCalories INTEGER
+        caloriesList TEXT,
+        fatsList TEXT,
+        carbsList TEXT,
+        proteinsList TEXT,
+        amountsList TEXT
     )
 """)
 connect.commit()
@@ -24,7 +32,7 @@ connect.commit()
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS loggedEntriesCount (
         date TEXT PRIMARY KEY,
-        breakfestNum INTEGER DEFAULT 0,
+        breakfastNum INTEGER DEFAULT 0,
         lunchNum INTEGER DEFAULT 0,
         dinnerNum INTEGER DEFAULT 0,
         snackNum INTEGER DEFAULT 0
@@ -32,21 +40,31 @@ cursor.execute("""
 """)
 connect.commit()
 
+
 def create_new_meal_entry(category):
+    """
+    Given a meal category, it inserts a new logged entry that can be later updated based on the datetime.
+    """
     print("==> Creating new entry in log_entries.py")
+
     current_meal_count = increment_meal_count(category)
     print("==> Received meal count", current_meal_count)
+
     datetime_str = datetime.now().strftime('%Y%m%d_%H%M%S')
     cursor.execute("""
         INSERT INTO dailyLoggedEntries (datetime, mealCategory)
         VALUES (?, ?)
     """, (datetime_str, category))
     connect.commit()
-    print(f"==> Inserted NEW MEAL ENTRY: {datetime_str} | {category}")
 
+    print(f"==> Inserted NEW MEAL ENTRY: {datetime_str} | {category}")
     return datetime_str
 
+
 def increment_meal_count(category):
+    """
+    When a new entry is created, it increments the given meal category.
+    """
     print(f"==> In increment_meal_count for {category}!")
 
     date_today = datetime.now().strftime('%Y-%m-%d')
@@ -70,7 +88,6 @@ def increment_meal_count(category):
             SET {category}Num = {category}Num + 1
             WHERE date = ?
         """, (date_today,))
-
     connect.commit()
 
     # Select updated row

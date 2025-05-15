@@ -1,31 +1,9 @@
 # FoodKapture
 
-## File Structure
-
-FoodKapture/
-│
-├── app/
-│   ├── __init__.py
-│   ├── routes.py # Flask routes (API endpoints)
-│   ├── model/ # Model loading and inference logic
-│   │   ├── __init__.py
-│   │   └── classify.py
-│   └── utils/ # Preprocessing, postprocessing
-│       └── image_utils.py
-│
-├── static/ # Static files (JS, CSS, etc.)
-├── templates/ # HTML templates (if using Flask for rendering)
-│
-├── model/ # Saved model files (e.g., .pt, .h5)
-│   └── unet_model.pt
-│
-├── uploads/ # Uploaded images (optional)
-│
-├── run.py # Entry point to run the Flask app
-├── requirements.txt # Python dependencies
-└── README.md
-
-## Dependencies
-
+## Set Up
 Set up dependencies with installing all requirements with
 `pip install -r requirements.txt`
+
+To run the program, set your terminal to be in the project folder and run `python run.py`. Your terminal should output the localhost url for you to run locally on your computer.
+
+If you would like to test of your phone, you would need to set up `ngrok`. Once you have install ngrok, have your python server running locally on and open another terminal. In this second terminal, type `ngrok http 8000`. This should allow for ngrok to run and create a unique url that listens in on your local port 8000. Copy and paste the unique url on your mobile device and it should open a ngrok starter page, click "Visit Site" to open the page and play on the application demo!

@@ -1,3 +1,4 @@
+// For summary.html and generates the daily summary chart based on the meal entries (currently only based on sessionStored currentMeal)
 
 document.addEventListener("DOMContentLoaded", () => {
     const mealData = JSON.parse(sessionStorage.getItem('currentMeal')).output;
@@ -39,12 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const totalProteins = document.getElementById('total-proteins');
         const totalCarbs = document.getElementById('total-carbs');
 
-        totalCals.textContent = data.cals;
-        totalFats.textContent = data.fats;
-        totalCarbs.textContent = data.carbs;
-        totalProteins.textContent = data.proteins;
-
-
+        totalCals.textContent = (data.cals).toFixed(2);
+        totalFats.textContent = (data.fats).toFixed(2);
+        totalCarbs.textContent = (data.carbs).toFixed(2);
+        totalProteins.textContent = (data.proteins).toFixed(2);
     })
     .catch(err => {
         console.error('Error occurred:', err);
